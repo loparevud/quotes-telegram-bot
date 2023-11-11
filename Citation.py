@@ -23,9 +23,10 @@ def send_welcome(message):
             author_main = html_text.find_all('p', class_='blockquote-origin')
             length_main = len(author_main) - 1
             if checkAuthor is None:
-                bot.send_message(message.chat.id,text='Я не совсем понял запрос, возможно вы ищете что-то вроде этого:' +
-                                                      '\n' + '\n' + quotes_main[random.randint(0, length_main)].text + '\n' + '\n' +
-                                                      author_main[random.randint(0, length_main)].text)
+                rand_main = random.randint(0, length_main)
+                bot.send_message(message.chat.id, text='Я не совсем понял запрос, возможно вы ищете что-то вроде этого:' +
+                                                      '\n' + '\n' + quotes_main[rand_main].text + '\n' + '\n' +
+                                                       author_main[rand_main].text)
             else:
                 author_site = requests.get(
                     'https://ru.citaty.net' + html_text.find('a', class_="w-10 mr-3 flex-none").get("href"))
@@ -44,7 +45,8 @@ def send_welcome(message):
                     quotes = quotes + author_site_text.find_all('p', class_='blockquote-text')
                     author = author + author_site_text.find_all('p', class_='blockquote-origin')
                     length = len(author) - 1
-                text = quotes[random.randint(0, length)].text + '\n' + '\n' + author[random.randint(0, length)].text
+                rand = random.randint(0, length)
+                text = quotes[rand].text + '\n' + '\n' + author[rand].text
                 small_photo_check = small_photo_search.find('source')
 
                 if small_photo_check != None:
